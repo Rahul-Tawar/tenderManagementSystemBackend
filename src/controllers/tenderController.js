@@ -2,6 +2,7 @@ import Tender from '../models/tenderModel.js';
 
 export const createTender = async (req, res) => {
   const { title, description, deadline } = req.body;
+  console.log(req.userId);
 
   try {
     const tender = await Tender.create({ title, description, deadline, userId: req.userId });
