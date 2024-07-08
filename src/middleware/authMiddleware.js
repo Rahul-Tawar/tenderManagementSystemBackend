@@ -2,11 +2,13 @@ import jwt from 'jsonwebtoken';
 import config from '../config/config.js';
 
 const verifyToken = (req, res, next) => {
-  const token = req.headers['x-access-token'];
-  console.log(headers);
-  if (!token) {
+  const Bearer = req.headers['authorization'];
+  if (!Bearer) {
     return res.status(403).send({ message: 'No token provided!' });
   }
+  
+  const token = Bearer.split(' ')[1]; // Remove 'Bearer' prefix
+  console.log('Token:', token);
 
   jwt.verify(token, config.secret, (err, decoded) => {
     if (err) {
